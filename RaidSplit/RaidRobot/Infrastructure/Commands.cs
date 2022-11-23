@@ -1,5 +1,6 @@
 ﻿using Discord;
 using Discord.Commands;
+using Discord.WebSocket;
 using RaidRobot.Logic;
 using RaidRobot.Messaging.Interfaces;
 using RaidRobot.Users;
@@ -13,15 +14,17 @@ namespace RaidRobot.Infrastructure
 {
     public partial class Commands :ModuleBase<SocketCommandContext>
     {
+        private readonly DiscordSocketClient client;
+        private readonly IPreSplitOrchestrator preSplitOrchestrator;
         private readonly IRaidSplitConfiguration config;
         private readonly IPermissionChecker permissionChecker;
         private readonly IEventCreator eventCreator;
         private readonly IUploadMonitor uploadMonitor;
         private readonly IEventOrchestrator eventOrchestrator;
         private readonly IRosterOrchestrator rosterOrchestrator;
-        private readonly IPreSplitOrchestrator preSplitOrchestrator;
 
         public Commands(
+            DiscordSocketClient client,
             IRaidSplitConfiguration config,
             IPermissionChecker permissionChecker, 
             IEventCreator eventCreator,
@@ -30,6 +33,7 @@ namespace RaidRobot.Infrastructure
             IRosterOrchestrator rosterOrchestrator,
             IPreSplitOrchestrator preSplitOrchestrator)
         {
+            this.client = client;
             this.config = config;
             this.permissionChecker = permissionChecker;
             this.eventCreator = eventCreator;
@@ -152,37 +156,15 @@ namespace RaidRobot.Infrastructure
             await ReplyAsync(sb.ToString());
         }
 
-        private async Task<IGuildUser> findUser(string username)
+        private async Task<IUser> findUser(string username)
         {
-
-            var user = Context.Guild.Users.FirstOrDefault(x => x.Nickname?.ToLower() == username.ToLower());
-            if (user == null)
-            {
-                user = Context.Guild.Users.FirstOrDefault(x => x.Username.ToLower() == username.ToLower());
+            var userfound = Discord.MentionUtils.TryParseUser(username, out ulong userId);
+            if (userfound) {
+                var user = await client.GetUserAsync(userId);
+                return user;
+            } else {
+                return null;
             }
-
-            if (user == null)
-            {
-                var potentialusers = Context.Guild.Users.Where(x => x.Nickname != null && x.Nickname.ToLower().StartsWith(username.ToLower()));
-                if (potentialusers.Count() == 1)
-                    user = potentialusers.First();
-            }
-
-            if (user == null)
-            {
-                var potentialusers = Context.Guild.Users.Where(x => x.Username.ToLower().StartsWith(username.ToLower()));
-                if (potentialusers.Count() == 1)
-                    user = potentialusers.First();
-            }
-
-            if (user == null)
-            {
-                await ReplyAsync($"Could not locate user {username}");
-            }
-
-            return user;
         }
-
-
     }
 }

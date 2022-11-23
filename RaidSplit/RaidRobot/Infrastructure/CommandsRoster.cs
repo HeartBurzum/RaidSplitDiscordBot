@@ -279,9 +279,16 @@ namespace RaidRobot.Infrastructure
                     return;
                 }
 
-                var user = await findUser(userName);
-                if (user == null)
+                if (!userName.StartsWith("<") && !userName.EndsWith(">")) {
+                    await ReplyAsync("Linking to a user must be with a mention");
                     return;
+                }
+
+                var user = await findUser(userName);
+                if (user == null) {
+                    await ReplyAsync($"Error: User {userName} was unable to be found. No changes have been made.");
+                    return;
+                }
 
                 await rosterOrchestrator.MapUser(Context.Guild.Id, user.Id, characterName, characterTypeName);
             }
