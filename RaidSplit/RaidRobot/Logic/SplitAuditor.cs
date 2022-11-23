@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
@@ -49,10 +50,19 @@ namespace RaidRobot.Logic
 
         private string getFileName()
         {
-            if (!Directory.Exists(config.Settings.TempFileDirectoryPath))
-                Directory.CreateDirectory(config.Settings.TempFileDirectoryPath);
+            string path;
 
-            string fileName = Path.Combine(config.Settings.DataFileDirectoryPath, $"{Guid.NewGuid()}.txt");
+            if (config.Settings.TempFileDirectoryPath == "" || config.Settings.TempFileDirectoryPath.StartsWith("__")) {
+                path = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+                path = Path.Combine(path, "TempFileDirectory");
+            } else {
+                path = config.Settings.TempFileDirectoryPath;
+            }
+
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
+
+            string fileName = Path.Combine(path, $"{Guid.NewGuid()}.txt");
             return fileName;
         }
     }

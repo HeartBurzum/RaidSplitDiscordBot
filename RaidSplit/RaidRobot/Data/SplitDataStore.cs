@@ -6,6 +6,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -32,10 +33,19 @@ namespace RaidRobot.Data
 
         private string getFileName()
         {
-            if(!Directory.Exists(config.Settings.DataFileDirectoryPath))
-                Directory.CreateDirectory(config.Settings.DataFileDirectoryPath);
+            string path;
 
-            string fileName = Path.Combine(config.Settings.DataFileDirectoryPath, Constants.DATA_FILE_NAME);
+            if (config.Settings.DataFileDirectoryPath == "" || config.Settings.DataFileDirectoryPath.StartsWith("__")) {
+                path = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+                path = Path.Combine(path, "DataFileDirectory");
+            } else {
+                path = config.Settings.DataFileDirectoryPath;
+            }
+
+            if(!Directory.Exists(path))
+                Directory.CreateDirectory(path);
+
+            string fileName = Path.Combine(path, Constants.DATA_FILE_NAME);
             return fileName;
         }
 
