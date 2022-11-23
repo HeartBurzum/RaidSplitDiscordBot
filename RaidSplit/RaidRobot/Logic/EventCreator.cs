@@ -84,9 +84,9 @@ namespace RaidRobot.Logic
             var attendeeResult = await textCommunicator.SendMessage(context.Guild.Id, channel.Id, attendeeMessage);
             raidEvent.Messages[MessageContexts.AttendeeMessage] = attendeeResult.ConvertToMessageDetail();
 
-            var announceMessage = $"{context.Guild.EveryoneRole.Mention} Sign up for {raidEvent.EventName} above.";
-            var announceResult = await textCommunicator.SendMessage(context.Guild.Id, channel.Id, announceMessage);
-            raidEvent.Messages[MessageContexts.EveryoneRegistrationMessage] = announceResult.ConvertToMessageDetail();
+            //var announceMessage = $"{context.Guild.EveryoneRole.Mention} Sign up for {raidEvent.EventName} above.";
+            //var announceResult = await textCommunicator.SendMessage(context.Guild.Id, channel.Id, announceMessage);
+            //raidEvent.Messages[MessageContexts.EveryoneRegistrationMessage] = announceResult.ConvertToMessageDetail();
 
             splitDataStore.Events.TryAdd(raidEvent.EventID, raidEvent);
             splitDataStore.SaveChanges();
