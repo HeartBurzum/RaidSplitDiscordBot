@@ -25,7 +25,7 @@ namespace RaidRobot.Logic
             sb.AppendLine("```md");
             sb.AppendLine($"Split {split.SplitNumber} - Leader {split.Leader.CharacterName} - ({split.Attendees.Count})");
             sb.AppendLine("-------------------------------");
-            sb.AppendLine($"* Send Your x's for invites to <{split.Inviter.CharacterName}>");
+            sb.AppendLine($"* Send /gu !inv split {split.SplitNumber} - Window Manager: <{split.Inviter.CharacterName}>");
             sb.AppendLine($"* Your Master Looter is <{split.MasterLooter.CharacterName}>");
 
             foreach (var guildClass in config.Classes.OrderBy(x => x.Name))
@@ -42,12 +42,11 @@ namespace RaidRobot.Logic
 
             sb.AppendLine("```");
             if (split.Actions.Count != 0) {
-                sb.AppendLine("```yaml");
                 foreach (var action in split.Actions.OrderByDescending(x => x.actionTime).Take(5))
                 {
-                    sb.AppendLine($"{action.actionTime.ToString("HH:mm")} {action.action}");
+                    var time = new DateTimeOffset(action.actionTime.ToUniversalTime());
+                    sb.AppendLine($"<t:{time.ToUnixTimeSeconds().ToString()}:t> {action.action}");
                 }
-                sb.AppendLine("```");
             }
 
             return sb.ToString();

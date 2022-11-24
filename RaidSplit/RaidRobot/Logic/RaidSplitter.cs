@@ -148,7 +148,7 @@ namespace RaidRobot.Logic
 
             return new AttendeeResponse()
             {
-                Message = $"{attendee.CharacterName} added to Split {bestSplit.SplitNumber}. Send an X to {bestSplit.Inviter.CharacterName}",
+                Message = $"{attendee.CharacterName} added to Split {bestSplit.SplitNumber}. Send /gu !inv split {bestSplit.SplitNumber}",
                 Split = bestSplit,
                 Attendee = attendee
             };
