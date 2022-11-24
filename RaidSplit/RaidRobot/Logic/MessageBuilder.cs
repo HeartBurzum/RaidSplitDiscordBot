@@ -101,8 +101,10 @@ namespace RaidRobot.Logic
                     shortClassLine.Append(shortClassIntro);
                     shortClassLine.Append($" ({people.Count()}) ");
 
+                    var loopcount = 0;
                     foreach (var person in people)
                     {
+                        loopcount++;
                         if (person.IsBox)
                         {
                             classLine.Append($"{person.CharacterName} (B)");
@@ -126,7 +128,9 @@ namespace RaidRobot.Logic
                             shortClassLine.Append(person.CharacterName + " ");
                         }
 
-                        classLine.Append(", ");
+                        if (loopcount != people.Count) {
+                            classLine.Append(", ");
+                        }
                     }
 
                     longClassNames.AppendLine(classLine.ToString());
