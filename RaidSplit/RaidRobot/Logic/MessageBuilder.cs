@@ -41,12 +41,14 @@ namespace RaidRobot.Logic
             }
 
             sb.AppendLine("```");
-            sb.AppendLine("```yaml");
-            foreach (var action in split.Actions.OrderByDescending(x => x.actionTime).Take(5))
-            {
-                sb.AppendLine($"{action.actionTime.ToString("HH:mm")} {action.action}");
+            if (split.Actions.Count != 0) {
+                sb.AppendLine("```yaml");
+                foreach (var action in split.Actions.OrderByDescending(x => x.actionTime).Take(5))
+                {
+                    sb.AppendLine($"{action.actionTime.ToString("HH:mm")} {action.action}");
+                }
+                sb.AppendLine("```");
             }
-            sb.AppendLine("```");
 
             return sb.ToString();
         }
