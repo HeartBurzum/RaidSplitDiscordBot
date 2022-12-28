@@ -112,7 +112,7 @@ namespace RaidRobot.Logic
 
         public  async Task UpdateClass(ulong guildID, string characterName, string className)
         {
-            if (className.Split().Length != 1)
+            if (className.Split().Length != 1 && className != "Shadow Knight")
             {
                 await textCommunicator.SendMessageByChannelName(guildID, config.Settings.SpamChannel,
                     $"Class Names can only be a single word. Reply to the original message with just the class name.  Bad Input: {className}");
