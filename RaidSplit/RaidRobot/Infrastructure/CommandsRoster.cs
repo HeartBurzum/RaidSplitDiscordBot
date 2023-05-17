@@ -230,7 +230,7 @@ namespace RaidRobot.Infrastructure
         {
             try
             {
-                var permissionResult = permissionChecker.CheckManagerPermissions(Context, "ViewBuddies");
+                var permissionResult = permissionChecker.CheckManagerPermissions(Context, "ViewAnchors");
                 if (!permissionResult.HasPremission)
                 {
                     await ReplyAsync(permissionResult.Message);
