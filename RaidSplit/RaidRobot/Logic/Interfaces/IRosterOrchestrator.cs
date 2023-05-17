@@ -18,6 +18,7 @@ namespace RaidRobot.Logic
         string UpdateLooters(string characterNames, bool value);
         string UpdateInviters(string characterNames, bool value);
         string UpdateAnchors(string characterNames, bool value);
+        string GetAnchors();
         void SetBuddies(string characterNames);
         void RemoveBuddies(string characterNames);
         string GetBuddies();

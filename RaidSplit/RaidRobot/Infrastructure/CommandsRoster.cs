@@ -225,7 +225,26 @@ namespace RaidRobot.Infrastructure
                 await ReplyAsync($"Error: {ex.Message}");
             }
         }
+        [Command("ViewAnchors", RunMode = RunMode.Async)]
+        public async Task ViewAnchors()
+        {
+            try
+            {
+                var permissionResult = permissionChecker.CheckManagerPermissions(Context, "ViewBuddies");
+                if (!permissionResult.HasPremission)
+                {
+                    await ReplyAsync(permissionResult.Message);
+                    return;
+                }
 
+                var result = rosterOrchestrator.GetAnchors();
+                await ReplyAsync(result);
+            }
+            catch (Exception ex)
+            {
+                await ReplyAsync($"Error: {ex.Message}");
+            }
+        }
         [Command("SetBuddies", RunMode = RunMode.Async)]
         public async Task SetBuddies([Remainder] string characters)
         {

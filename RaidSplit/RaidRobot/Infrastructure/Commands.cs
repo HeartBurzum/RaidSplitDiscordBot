@@ -150,6 +150,7 @@ namespace RaidRobot.Infrastructure
             sb.AppendLine($"**{config.Settings.MessagePrefix} AddLooters** followed by the character names (spaces between) to grant them ability to be a master looter.");
             sb.AppendLine($"**{config.Settings.MessagePrefix} Unmap** followed by a character name to remove the mapping between the character and discord user.");
             sb.AppendLine($"**{config.Settings.MessagePrefix} ViewBuddies** to see the buddies.");
+            sb.AppendLine($"**{config.Settings.MessagePrefix} ViewAnchors** to see the anchors.");
             sb.AppendLine($"**{config.Settings.MessagePrefix} UpdateRoster** to tell the bot you are about to post the guild dump from EQ and it will start looking for your post.");
             sb.AppendLine(string.Empty);
 

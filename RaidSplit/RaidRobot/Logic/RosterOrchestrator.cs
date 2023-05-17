@@ -306,6 +306,12 @@ namespace RaidRobot.Logic
             return $"Anchors:{string.Join(", ", currentAnchors)}";
         }
 
+        public string GetAnchors()
+        {
+            var currentAnchors = splitDataStore.Roster.Where(x => x.Value.IsAnchor).Select(x => x.Value.CharacterName);
+            return $"Anchors:{string.Join(", ", currentAnchors)}";
+        }
+
         public void SetBuddies(string characterNames)
         {
             var characters = characterNames.Split(' ');
