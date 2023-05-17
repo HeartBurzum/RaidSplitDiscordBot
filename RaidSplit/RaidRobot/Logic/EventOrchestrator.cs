@@ -157,7 +157,7 @@ namespace RaidRobot.Logic
             foreach (var lateCharacter in lateCharacters)
             {
                 var addResult = raidSplitter.AddToSplit(raidEvent, raidEvent.Splits, lateCharacter);
-                addResult.Split.Actions.Add((DateTime.Now, $"No Loger Late - Added {addResult.Attendee.CharacterName}"));
+                addResult.Split.Actions.Add((DateTime.Now, $"No Longer Late - Added {addResult.Attendee.CharacterName}"));
                 raidEvent.LateMembers.Remove(lateCharacter.CharacterName);
                 await UpdateSplitAnnouncement(raidEvent, addResult.Split);
             }

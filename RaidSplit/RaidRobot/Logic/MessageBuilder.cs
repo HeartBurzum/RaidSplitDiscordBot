@@ -179,7 +179,7 @@ namespace RaidRobot.Logic
             sb.AppendLine("* Reply Inviter followed by a character name to change it.");
             sb.AppendLine("* Reply Move followed by a character name to move them into this split.");
             sb.AppendLine("* Reply Swap followed by two character names to swap their splits.");
-            sb.AppendLine("* Reply Redo followed by a split count to rebuild the splits using a differnt random seed.");
+            sb.AppendLine("* Reply Redo followed by a split count to rebuild the splits using a different random seed.");
             sb.AppendLine("* Reply IgnoreBuddies to redo the splits without buddies.");
             sb.AppendLine("```");
             return sb.ToString();
